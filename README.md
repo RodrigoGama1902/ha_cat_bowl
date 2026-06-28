@@ -54,6 +54,8 @@ After installation, add the integration via the UI:
 5. Optionally adjust the **Scan interval** in seconds (default: `3600` — once per hour). Set it to `0` to disable automatic polling and only update on demand via the **Cat Bowl Refresh** button (e.g. from an automation).
 6. Click **Submit**. The integration will validate the connection before saving.
 
+All of these settings can be changed later without removing the integration: go to **Settings → Devices & Services → Cat Bowl → Configure**.
+
 ## Troubleshooting
 
 - **Cannot connect**: Make sure the detector server is running and reachable at the configured address. You can test it by opening `http://<host>:<port>/health` in a browser — it should return a successful response.

@@ -4,7 +4,7 @@ import aiohttp
 import voluptuous as vol
 
 from homeassistant import config_entries
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -35,6 +35,11 @@ async def _validate_connection(hass: HomeAssistant, host: str, port: int) -> Non
 class CatBowlConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        return CatBowlOptionsFlow(config_entry)
+
     async def async_step_user(self, user_input=None):
         errors = {}
 
@@ -58,5 +63,47 @@ class CatBowlConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=STEP_USER_SCHEMA,
+            errors=errors,
+        )
+
+
+class CatBowlOptionsFlow(config_entries.OptionsFlow):
+    """Allow editing all settings after the integration is set up."""
+
+    def __init__(self, config_entry) -> None:
+        self._entry = config_entry
+
+    async def async_step_init(self, user_input=None):
+        errors = {}
+        current = {**self._entry.data, **self._entry.options}
+
+        if user_input is not None:
+            try:
+                await _validate_connection(
+                    self.hass, user_input["host"], user_input["port"]
+                )
+            except (aiohttp.ClientError, TimeoutError):
+                errors["base"] = "cannot_connect"
+            else:
+                return self.async_create_entry(title="", data=user_input)
+
+        options_schema = vol.Schema(
+            {
+                vol.Required("host", default=current["host"]): str,
+                vol.Required("port", default=current["port"]): int,
+                vol.Required(
+                    "camera_entity", default=current["camera_entity"]
+                ): selector.EntitySelector(
+                    selector.EntitySelectorConfig(domain="camera")
+                ),
+                vol.Optional(
+                    "scan_interval", default=current["scan_interval"]
+                ): vol.All(vol.Coerce(int), vol.Range(min=0)),
+            }
+        )
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=options_schema,
             errors=errors,
         )

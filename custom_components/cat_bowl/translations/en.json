@@ -15,5 +15,22 @@
     "error": {
       "cannot_connect": "Unable to reach the server. Check the host, port, and that the server is running."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Cat Bowl options",
+        "description": "Update the connection and detection settings.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "camera_entity": "Camera",
+          "scan_interval": "Scan interval (seconds, 0 = manual only)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the server. Check the host, port, and that the server is running."
+    }
   }
 }
