@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "config_flow": true,
   "documentation": "https://github.com/RodrigoGama1902/ha_cat_bowl",
+  "issue_tracker": "https://github.com/RodrigoGama1902/ha_cat_bowl/issues",
   "requirements": [],
-  "codeowners": [],
+  "codeowners": ["@RodrigoGama1902"],
   "iot_class": "local_polling"
 }
