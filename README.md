@@ -6,7 +6,7 @@ A custom Home Assistant integration that polls a local cat food detector server 
 
 On every update cycle the integration pulls a snapshot from the configured Home Assistant `camera` entity, posts it to the server's `/detect` endpoint, and reports the fresh result. The sensor is fully self-contained and needs **no external automation**.
 
-> **Note:** Values refresh once per update cycle (configurable scan interval, default every hour). The snapshot is sent to `/detect` as multipart form-data under the field name `image`.
+> **Note:** Values refresh once per update cycle (configurable scan interval, default every hour). Set the scan interval to `0` to disable automatic updates and refresh only when the **Cat Bowl Refresh** button is pressed. The snapshot is sent to `/detect` as multipart form-data under the field name `image`.
 
 ## Entities
 
@@ -17,6 +17,7 @@ On every update cycle the integration pulls a snapshot from the configured Home 
 | `Cat Food Detector Latency` | Sensor (ms) | Response latency from the detector server |
 | `Cat Bowl Camera` | Sensor (diagnostic) | The camera entity whose snapshots are sent to the detector |
 | `Cat Bowl Scan Interval` | Sensor (diagnostic, s) | The configured polling interval |
+| `Cat Bowl Refresh` | Button | Forces an immediate snapshot + detection on demand |
 
 ## Requirements
 
@@ -50,7 +51,7 @@ After installation, add the integration via the UI:
 2. Search for **Cat Bowl**.
 3. Enter the **host** and **port** of your detector server (defaults: `192.168.68.50` / `8080`).
 4. Pick the **Camera** entity whose snapshots will be sent to the detector.
-5. Optionally adjust the **Scan interval** in seconds (default: `3600` — once per hour; minimum `10`).
+5. Optionally adjust the **Scan interval** in seconds (default: `3600` — once per hour). Set it to `0` to disable automatic polling and only update on demand via the **Cat Bowl Refresh** button (e.g. from an automation).
 6. Click **Submit**. The integration will validate the connection before saving.
 
 ## Troubleshooting

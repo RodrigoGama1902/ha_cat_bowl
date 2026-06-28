@@ -32,7 +32,9 @@ class CatBowlCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(seconds=scan_interval),
+            update_interval=(
+                timedelta(seconds=scan_interval) if scan_interval > 0 else None
+            ),
         )
 
     async def _async_update_data(self) -> dict:

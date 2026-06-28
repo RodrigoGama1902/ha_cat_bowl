@@ -19,7 +19,7 @@ STEP_USER_SCHEMA = vol.Schema(
         ),
         vol.Optional(
             "scan_interval", default=DEFAULT_SCAN_INTERVAL
-        ): vol.All(vol.Coerce(int), vol.Range(min=10)),
+        ): vol.All(vol.Coerce(int), vol.Range(min=0)),
     }
 )
 
