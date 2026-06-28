@@ -1,0 +1,10 @@
+{
+  "domain": "cat_bowl",
+  "name": "Cat Bowl",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/RodrigoGama1902/ha_cat_bowl",
+  "requirements": [],
+  "codeowners": [],
+  "iot_class": "local_polling"
+}

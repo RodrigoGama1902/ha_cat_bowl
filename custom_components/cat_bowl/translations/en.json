@@ -1,0 +1,19 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Cat Bowl",
+        "description": "Connect to your Cat Bowl detection server.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "camera_entity": "Camera",
+          "scan_interval": "Scan interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to reach the server. Check the host, port, and that the server is running."
+    }
+  }
+}
